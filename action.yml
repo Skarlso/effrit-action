@@ -1,0 +1,28 @@
+# action.yml
+name: 'An action for Effrit'
+description: 'A simple action to run Effrit on a project. Either as a PR checker or, as a scanner tool.'
+inputs:
+  owner:  # id of input
+    description: 'The owner of the repo'
+    required: true
+    default: ''
+  pr_number:  # id of input
+    description: 'The number of the PR'
+    required: true
+    default: ''
+  repo:
+    description: 'The name of the repository'
+    required: true
+    default: ''
+  project_name:
+    description: 'The name of the project'
+    required: false
+    default: ''
+runs:
+  using: 'composite'
+  steps:
+    - run: ${{ github.action_path }}/effrit.sh
+branding:
+  icon: "arrow-right-circle"
+  color: purple
+author: "Gergely Brautigam"
