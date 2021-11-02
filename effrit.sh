@@ -26,3 +26,13 @@ while getopts ":o:n:r:p:" opt; do
 done
 
 echo "REPO: ${REPO}; OWNER: ${OWNER}; PR_NUMBER: ${PR_NUMBER}; PROJECT_NAME: ${PROJECT_NAME}"
+echo -n "Downloading latest effrit binary..."
+mkdir -p /app
+cd /app
+curl -L https://github.com/Skarlso/effrit/releases/latest/download/effrit_linux_amd64.tar.gz | tar -xz
+echo "done."
+mv effrit /usr/local/bin
+echo "Running Effrit PR checker..."
+cd "${GITHUB_WORKSPACE}"
+effrit check pr --owner "${OWNER}" --pr-number "${PR_NUMBER}" --project-name "${PROJECT_NAME}" --repo "${REPO}"
+echo "done. Thank you for using Effrit"
